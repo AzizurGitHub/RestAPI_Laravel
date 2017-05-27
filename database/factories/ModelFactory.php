@@ -37,14 +37,14 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 $factory->define(Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
-        'description' =>$faker->sentence(20)
+        'description' =>$faker->sentence(5)
     ];
 });
 
 $factory->define(Product::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
-        'description' =>$faker->sentence(20),
+        'description' =>$faker->sentence(5),
         'image' => $faker->randomElement(['1.jpg','2.jpg','3.jpg','4.jpg']),
         'seller_id' =>User::all()->random(1)->first()->id,
         'price' =>$faker->randomFloat(2, 100, 1000)
