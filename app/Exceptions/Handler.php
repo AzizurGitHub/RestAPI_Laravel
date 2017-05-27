@@ -2,12 +2,18 @@
 
 namespace App\Exceptions;
 
+use App\Traits\APiResponse;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use APiResponse;
     /**
      * A list of the exception types that should not be reported.
      *
@@ -44,6 +50,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        if($exception instanceof ModelNotFoundException){
+            return $this->showError("model not found",404);
+        }
+
+        if($exception instanceof  NotFoundHttpException){
+            return $this->showError("this route not found",404);
+        }
+
+        if($exception instanceof  MethodNotAllowedHttpException){
+            return $this->showError("this method not found",404);
+        }
+
+        if($exception instanceof ValidationException){
+            return $this->convertValidationExceptionToResponse($exception,$request);
+        }
+
+
+
         return parent::render($request, $exception);
     }
 
@@ -61,5 +86,14 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest(route('login'));
+    }
+
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+
+
+        $errors = $e->validator->errors()->getMessages();
+        return $this->showError($errors, 422);
+
     }
 }
