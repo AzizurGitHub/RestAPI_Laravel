@@ -16,6 +16,6 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-
+Route::get('users/verify/{token}','Api\User\UserController@verify')->name('create.user.activation');
 Route::resource('users','Api\User\UserController');
-Route::get('users/verify','Api\User\UserController@verify')->name('create.user.activation');
+
