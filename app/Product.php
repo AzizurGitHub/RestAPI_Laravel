@@ -19,6 +19,11 @@ class Product extends Model
         'seller_id'
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -27,6 +32,11 @@ class Product extends Model
     public function seller()
     {
         return $this->belongsTo(Seller::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 
 }
