@@ -28,9 +28,11 @@ Route::resource('categories.sellers', 'Api\Category\CategorySellerController', [
 Route::resource('categories.buyers', 'Api\Category\CategoryBuyerController', ['only' => ['index']]);
 
 //product related route
-Route::resource('products', 'Api\Product\ProductController', ['only' => [
-    'index', 'show'
-]]);
+Route::resource('products', 'Api\Product\ProductController', ['only' => ['index', 'show']]);
+Route::resource('products.categories', 'Api\Product\ProductCategoryController', ['only' => ['index']]);
+Route::resource('products.sellers', 'Api\Product\ProductSellerController', ['only' => ['index']]);
+Route::resource('products.transactions', 'Api\Product\ProductTransactionController', ['only' => ['index']]);
+Route::resource('products.buyers', 'Api\Product\ProductBuyerController', ['only' => ['index']]);
 
 //transactions related route
 Route::resource('transactions', 'Api\Transaction\TransactionController', ['only' => [
@@ -38,12 +40,16 @@ Route::resource('transactions', 'Api\Transaction\TransactionController', ['only'
 ]]);
 
 //buyer related route
-Route::resource('buyers', 'Api\Buyer\BuyerController', ['only' => [
-    'index', 'show'
-]]);
+Route::resource('buyers', 'Api\Buyer\BuyerController', ['only' => ['index', 'show']]);
+Route::resource('buyers.transactions', 'Api\Buyer\BuyerTransactionController', ['only' => ['index']]);
+Route::resource('buyers.products', 'Api\Buyer\BuyerProductController', ['only' => ['index']]);
+Route::resource('buyers.categories', 'Api\Buyer\BuyerCategoryController', ['only' => ['index']]);
+Route::resource('buyers.sellers', 'Api\Buyer\BuyerSellerController', ['only' => ['index']]);
 
 //seller related route
-Route::resource('sellers', 'Api\Seller\SellerController', ['only' => [
-    'index', 'show'
-]]);
+Route::resource('sellers', 'Api\Seller\SellerController', ['only' => ['index', 'show']]);
+Route::resource('sellers.products', 'Api\Seller\SellerProductController', ['only' => ['index']]);
+Route::resource('sellers.categories', 'Api\Seller\SellerCategoryController', ['only' => ['index']]);
+Route::resource('sellers.transactions', 'Api\Seller\SellerTransactionController', ['only' => ['index']]);
+Route::resource('sellers.buyers', 'Api\Seller\SellerBuyerController', ['only' => ['index']]);
 

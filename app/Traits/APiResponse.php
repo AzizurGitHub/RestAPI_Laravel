@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 trait APiResponse
 {
 
-    protected function showAll(Collection $collection,$code){
+    protected function showAll(Collection $collection,$code=200){
 
 
 //        if($collection->isEmpty()){
@@ -24,7 +24,7 @@ trait APiResponse
         return response()->json(["data"=>$collection,"code"=>$code],$code);
     }
 
-    protected function showOne(Model $model,$code){
+    protected function showOne(Model $model,$code=200){
         return response()->json(["data"=>$model,"code"=>$code],$code);
     }
 
