@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ApiNameResponse;
+use App\Http\Middleware\Apithrottle;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -37,8 +39,9 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            'mythrotle:5,1',
             'bindings',
+            'apiresponse:X-Application-Name',
         ],
     ];
 
@@ -56,5 +59,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'mythrotle' => Apithrottle::class,
+        'apiresponse' => ApiNameResponse::class,
     ];
 }

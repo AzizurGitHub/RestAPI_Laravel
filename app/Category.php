@@ -2,6 +2,8 @@
 
 namespace App;
 
+
+use App\Transformers\CategoryTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,6 +17,7 @@ class Category extends Model
         'description'
     ];
 
+    public $transformer = CategoryTransformer::class;
 
     public function products()
     {
