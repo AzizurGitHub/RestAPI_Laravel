@@ -27,4 +27,18 @@ class CategoryTransformer extends TransformerAbstract
 
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+
+        $attributes = [
+            'id' => 'id',
+            'title' => 'name',
+            'details' => 'description',
+            'lastChangeDate' => 'updated_at',
+            'deletedDate' => 'deleted_at',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }

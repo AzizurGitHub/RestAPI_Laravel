@@ -23,6 +23,8 @@ trait APiResponse
         }
 
         $transformer = $collection->first()->transformer;
+        $collection =  $this->filterData($collection,$transformer);
+        $collection =  $this->sortBy($collection,$transformer);
         $instance = $this->transformData($collection,$transformer);
         return response()->json($instance,$code);
 
@@ -48,6 +50,34 @@ trait APiResponse
     {
         $trnsformationInfo = fractal($model,new $transformer);
         return $trnsformationInfo->toArray();
+    }
+
+    public function filterData($collection,$transforer)
+    {
+
+
+        foreach (request()->query() as $query=>$values) {
+            $attribute = $transforer::originalAttribute($query);
+            if(isset($attribute,$values)){
+               $collection =  $collection->where($attribute,$values);
+            }
+        }
+        return $collection;
+    }
+
+    public function sortBy($collection,$transforer)
+    {
+        if(request()->has('sort_by')){
+            $attribute = $transforer::originalAttribute(request()->sort_by);
+
+            if(request()->has('order') && request()->order=='desc'){
+                $collection = $collection->sortByDesc($attribute);
+            }else{
+                $collection = $collection->sortBy($attribute);
+            }
+
+        }
+        return $collection;
     }
 
 

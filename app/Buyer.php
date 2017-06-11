@@ -3,12 +3,14 @@
 namespace App;
 
 use App\Scopes\BuyerTransactionScope;
+use App\Transformers\BuyerTransformer;
 use Illuminate\Database\Eloquent\Model;
 
 class Buyer extends User
 {
 
 
+    public $transformer = BuyerTransformer::class;
     protected static function boot()
     {
         parent::boot();

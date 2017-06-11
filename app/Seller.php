@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\SellerProductScope;
+use App\Transformers\SellerTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,6 +16,8 @@ class Seller extends User
 
         static::addGlobalScope(new SellerProductScope());
     }
+
+    public $transformer = SellerTransformer::class;
 
     public function products()
     {
